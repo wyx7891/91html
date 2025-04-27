@@ -4,48 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>实时时间显示</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: linear-gradient(45deg, #FF6B6B, #FFA726, #FFEE58, #B2FF59, #66D9EF, #967ADC, #DA8FFF);
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            position: relative;
-        }
-        #clock-container {
-            position: relative;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            width: 280px;
-            text-align: center;
-            z-index: 2;
-        }
-        #clock {
-            font-family: 'Arial', sans-serif;
-            font-size: 64px;
-            color: #2c3e50;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
-            white-space: nowrap;
-            will-change: contents;
-            line-height: 1;
-        }
-        .moving-text {
-            position: absolute;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-size: 24px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            opacity: 0.8;
-        }
-    </style>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <div id="clock-container">
@@ -69,9 +28,12 @@
         // 彩虹色数组
         const colors = ['#FF6B6B', '#FFA726', '#FFEE58', '#B2FF59', '#66D9EF', '#967ADC', '#DA8FFF'];
 
-        // 创建10个运动文本
+        // 配置链接地址
+        const redirectUrl = 'https://github.com/wyx7891/html'; // 替换为你想要跳转的链接
+
+        // 创建3个运动文本
         const elements = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 3; i++) {
             const div = document.createElement('div');
             div.className = 'moving-text';
             div.textContent = 'wyx';
@@ -91,6 +53,11 @@
             // 初始颜色设置
             div.style.backgroundColor = colors[div.colorIndex];
             div.style.color = '#000000';
+            
+            // 添加点击事件
+            div.addEventListener('click', () => {
+                window.location.href = redirectUrl; // 点击后跳转到指定链接
+            });
             
             elements.push(div);
             document.body.appendChild(div);
@@ -119,22 +86,36 @@
         }
         setInterval(changeColors, 500); // 每500ms切换颜色
 
-        // 运动逻辑
+        // 运动逻辑优化版
         function moveElements() {
-            elements.forEach(el => {
-                // 更新位置
-                el.style.left = (parseFloat(el.style.left) + el.dx) + 'px';
-                el.style.top = (parseFloat(el.style.top) + el.dy) + 'px';
+            const now = performance.now();
+            const deltaTime = now - (moveElements.lastTime || now);
+            moveElements.lastTime = now;
 
-                // 碰撞检测
+            elements.forEach(el => {
+                // 使用deltaTime确保帧率独立
+                const dx = el.dx * (deltaTime / 16); // 16ms是60fps的基准
+                const dy = el.dy * (deltaTime / 16);
+                
+                // 更新位置
+                let left = parseFloat(el.style.left) + dx;
+                let top = parseFloat(el.style.top) + dy;
+                
+                // 边界检测
                 const rect = el.getBoundingClientRect();
-                if (el.offsetLeft < 0 || el.offsetLeft + rect.width > window.innerWidth) {
+                if (left < 0 || left + rect.width > window.innerWidth) {
                     el.dx = -el.dx;
+                    left = Math.max(0, Math.min(left, window.innerWidth - rect.width));
                 }
-                if (el.offsetTop < 0 || el.offsetTop + rect.height > window.innerHeight) {
+                if (top < 0 || top + rect.height > window.innerHeight) {
                     el.dy = -el.dy;
+                    top = Math.max(0, Math.min(top, window.innerHeight - rect.height));
                 }
+                
+                el.style.left = left + 'px';
+                el.style.top = top + 'px';
             });
+            
             requestAnimationFrame(moveElements);
         }
         moveElements();
