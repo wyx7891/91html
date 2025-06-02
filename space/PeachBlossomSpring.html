@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="桃花源">
+    <title>桃花源</title>
+    <link rel="stylesheet" href="css/PBScss.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- 预加载字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cb09ccbe88.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="page-wrapper">
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-seedling"></i> 桃花源 <span>by Claude-3.7-Sonnet</span></h1>
+            </div>
+        </header>
+        
+        <nav>
+            <a href="#home" onclick="showSection('mainContent')"><i class="fas fa-home"></i> 首页</a>
+            <a href="#about" onclick="showSection('about')"><i class="fas fa-user"></i> 关于我们</a>
+            <a href="#portfolio" onclick="showSection('portfolio')"><i class="fas fa-images"></i> 作品集</a>
+            <a href="#thanks" onclick="showSection('thanks')"><i class="fas fa-heart"></i> 特别鸣谢</a>
+            <a href="#contact" onclick="showSection('contact')"><i class="fas fa-envelope"></i> 联系我们</a>
+        </nav>
+        
+        <main>
+            <section class="content active" id="mainContent">
+                <div class="section-header">
+                    <h2>欢迎来到桃花源</h2>
+                    <p class="subtitle">晋太元中，武陵人捕鱼为业</p>
+                </div>
+                
+                <div class="feature-cards">
+                    <div class="card">
+                        <div class="card-icon"><i class="fa-solid fa-code fa-bounce"></i></div>
+                        <h3>网站开发</h3>
+                        <p>由Claude-3.7-Sonnet开发。</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fa-solid fa-paintbrush fa-shake"></i></div>
+                        <h3>网页设计</h3>
+                        <p>由Claude-3.7-Sonnet设计。</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fa-solid fa-truck-front fa-beat"></i></div>
+                        <h3>百吨王</h3>
+                        <p>撞大运了！！！</p>
+                    </div>
+                </div>
+                
+                <div class="showcase">
+                    <img src="img/wyx.jpg" alt="项目展示" class="showcase-image">
+                    <div class="showcase-overlay">
+                        <h3>创意无限</h3>
+                        <p>探索更多精彩内容</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="content" id="about">
+                <div class="section-header">
+                    <h2>关于我们</h2>
+                    <p class="subtitle">了解我们的故事和使命</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>这个意大利面就应该拌 42 号混凝土，因为这个螺丝钉的长度，它很容易会直接影响到挖掘机的扭矩你知道吧。</p>
+                        <p>你往里砸的时候，一瞬间它就会产生大量的高能蛋白，俗称 UFO，会严重影响经济的发展，甚至对整个太平洋以及充电器都会造成一定的核污染，你知道吧？</p>
+                        <p>再者说，根据这个勾股定理，你可以很容易地推断出人工饲养的东条英机，它是可以捕获野生的三角函数的。</p>
+                        <p>所以说这个，你不管秦始皇的切面是否具有放射性啊，特朗普的 N 次方是否含有沉淀物啊，都不影响这个沃尔玛跟维尔康在南极会合。</p>
+                    </div>
+                    <div class="skills">
+                        <div class="skill">
+                            <span class="skill-name">Claude-3.7-Sonnet</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <span class="skill-name">Qwen2.5-Coder-32B-Instruct</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 10%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill">
+                            <span class="skill-name">Gemini-2.5-Pro-Preview(0506)</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 7%;"></div>
+                            </div>
+                        <div class="skill">
+                            <span class="skill-name">GPT-4o</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 3%;"></div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="content" id="portfolio">
+                <div class="section-header">
+                    <h2>作品集</h2>
+                    <p class="subtitle">探索我们的创意作品</p>
+                </div>
+                
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="img/wyx.jpg" alt="项目1">
+                        <div class="portfolio-overlay">
+                            <h3>创意网站设计</h3>
+                            <p>Web开发 / UI设计</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="img/wyx.jpg" alt="项目2">
+                        <div class="portfolio-overlay">
+                            <h3>移动应用界面</h3>
+                            <p>App开发 / UX设计</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="img/wyx.jpg" alt="项目3">
+                        <div class="portfolio-overlay">
+                            <h3>品牌标识设计</h3>
+                            <p>平面设计 / 品牌推广</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="content" id="thanks">
+                <div class="section-header">
+                    <h2>特别鸣谢</h2>
+                    <p class="subtitle">犬王</p>
+                </div>
+                
+                <div class="thanks-content">
+                    <div class="testimonial">
+                        <div class="quote"><i class="fas fa-quote-left"></i></div>
+                        <p>感谢犬王！</p>
+                        <div class="testimonial-author">— 桃花源团队</div>
+                    </div>
+                    
+                    <div class="partners">
+                        <h3>使用工具</h3>
+                        <div class="partner-logos">
+                            <div class="partner-logo"><i class="fab fa-github"></i></div>
+                            <div class="partner-logo"><img src="img/claude.svg" alt="Claude Logo"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="content" id="contact">
+                <div class="section-header">
+                    <h2>联系我们</h2>
+                    <p class="subtitle">随时与我们取得联系</p>
+                </div>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>桃花源深处</p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <p>wyxdjb18cm@outlook.com</p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fab fa-github"></i>
+                            <p>https://github.com/wyx7891/html</p>
+                        </div>
+                    </div>
+                    
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="您的姓名" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="您的邮箱" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <input type="text" placeholder="主题">
+                        </div>
+                        <div class="form-group full-width">
+                            <textarea placeholder="您的留言" rows="5" required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit">发送消息 <i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!-- 弹窗 HTML 结构 -->
+        <div id="customAlertModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2>消息未发送</h2>
+                <p>没后端怎么发？</p>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-seedling"></i> 桃花源</h3>
+                    <p>创意无限 · 技术卓越</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 桃花源 | 保留所有权利</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+    // 页面加载完成后执行
+    document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.querySelector('.contact-form'); // 更具体地选择表单
+        const modal = document.getElementById('customAlertModal');
+        const closeButton = document.querySelector('.close-button');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // 阻止表单默认提交行为
+                // 在这里可以添加发送表单数据的逻辑，例如使用 fetch API
+                // 假设发送成功
+                modal.style.display = 'block';
+                // contactForm.reset(); // 可选：清空表单
+            });
+        }
+
+        if (closeButton) {
+            closeButton.onclick = function() {
+                modal.style.display = 'none';
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // 添加页面加载动画
+        document.body.classList.add('loaded');
+        
+        // 为所有卡片添加动画延迟
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+        });
+    });
+    
+    // 显示指定部分，隐藏其他部分
+    function showSection(sectionId) {
+        // 隐藏所有内容区域
+        const sections = document.querySelectorAll('.content');
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // 显示选中的内容区域
+        const selectedSection = document.getElementById(sectionId);
+        if (selectedSection) {
+            selectedSection.classList.add('active');
+            
+            // 平滑滚动到选中区域
+            selectedSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 更新导航栏活动状态
+        updateNavActiveState(sectionId);
+    }
+    
+    // 更新导航栏活动状态
+    function updateNavActiveState(sectionId) {
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+    
+    // 滚动监听，更新导航栏状态
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY;
+        
+        // 获取所有内容区域
+        const sections = document.querySelectorAll('.content');
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                updateNavActiveState(section.id);
+            }
+        });
+    });
+    </script>
+</body>
+</html>

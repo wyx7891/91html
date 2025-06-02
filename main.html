@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>实时时间显示</title>
     <link rel="stylesheet" href="css/main.css">
+    <!-- 添加预加载提示 -->
+    <link rel="preconnect" href="https://github.com">
 </head>
 <body>
     <div id="clock-container">
@@ -29,96 +31,177 @@
         const colors = ['#FF6B6B', '#FFA726', '#FFEE58', '#B2FF59', '#66D9EF', '#967ADC', '#DA8FFF'];
 
         // 配置链接地址
-        const redirectUrl = 'https://github.com/wyx7891/html'; // 替换为你想要跳转的链接
+        const redirectUrl = 'https://github.com/wyx7891/html'; // 其他方框的跳转链接
+        const specialRedirectUrl = 'space/PeachBlossomSpring.html'; // “桃源”方框的跳转链接
 
-        // 创建3个运动文本
         const elements = [];
-        for (let i = 0; i < 3; i++) {
+        const elementRects = []; // 缓存元素尺寸 (offsetWidth, offsetHeight)
+        
+        const NUM_ELEMENTS = 3;
+
+        for (let i = 0; i < NUM_ELEMENTS; i++) {
             const div = document.createElement('div');
             div.className = 'moving-text';
-            div.textContent = 'wyx';
             
-            // 随机初始位置
-            div.style.left = Math.random() * (window.innerWidth - 100) + 'px';
-            div.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            // 随机初始位置 (确保完全在视窗内)
+            // 减去一个比方块大的尺寸，例如100px，确保初始时不会部分在屏幕外
+            const initialMargin = 100; 
+            div.style.left = (Math.random() * (window.innerWidth - initialMargin)) + 'px';
+            div.style.top = (Math.random() * (window.innerHeight - initialMargin)) + 'px';
             
-            // 运动参数
-            div.dx = (Math.random() * 4 - 2) * (Math.random() > 0.5 ? 1 : -1);
-            div.dy = (Math.random() * 4 - 2) * (Math.random() > 0.5 ? 1 : -1);
+            // 运动参数 (速度一致)
+            div.dx = (Math.random() * 2 + 1) * (Math.random() > 0.5 ? 1 : -1); // Speed between 1-3 px/tick
+            div.dy = (Math.random() * 2 + 1) * (Math.random() > 0.5 ? 1 : -1);
             
             // 颜色参数
-            div.colorIndex = Math.floor(Math.random() * colors.length); // 随机初始颜色索引
-            div.direction = Math.random() > 0.5 ? 1 : -1; // 初始方向
-            
-            // 初始颜色设置
+            div.colorIndex = Math.floor(Math.random() * colors.length);
+            div.direction = Math.random() > 0.5 ? 1 : -1; // For color cycling direction
             div.style.backgroundColor = colors[div.colorIndex];
-            div.style.color = '#000000';
+            div.style.color = '#000000'; // Text color
+
+            if (i === 0) { // “桃源”方框
+                div.textContent = '桃源';
+                div.classList.add('special-moving-text');
+                
+                let clickCount = 0;
+                let lastClickTime = 0;
+                let resetTimeoutId = null;
+
+                const progressContainer = document.createElement('div');
+                progressContainer.className = 'click-progress-container';
+                const progressBar = document.createElement('div');
+                progressBar.className = 'click-progress-bar';
+                progressContainer.appendChild(progressBar);
+                div.appendChild(progressContainer);
+
+                div.addEventListener('click', function() {
+                    const currentTime = new Date().getTime();
+
+                    if (resetTimeoutId) {
+                        clearTimeout(resetTimeoutId);
+                        resetTimeoutId = null;
+                    }
+
+                    if (clickCount > 0 && currentTime - lastClickTime > 3000) {
+                        clickCount = 0;
+                        // progressBar.style.width = '0%'; // Reset happens below or on next click
+                    }
+                    
+                    // If it was reset due to timeout, clickCount is 0
+                    if (currentTime - lastClickTime > 3000) { // Also handles first click after long pause
+                        clickCount = 0;
+                    }
+
+                    clickCount++;
+                    lastClickTime = currentTime;
+                    progressBar.style.width = (clickCount / 3 * 100) + '%';
+
+                    if (clickCount >= 3) {
+                        window.location.href = specialRedirectUrl;
+                        clickCount = 0;
+                        progressBar.style.width = '0%';
+                        lastClickTime = 0; 
+                        // No need to clear timeout here as we are navigating away
+                    } else {
+                        resetTimeoutId = setTimeout(() => {
+                            if (new Date().getTime() - lastClickTime >= 3000) {
+                                clickCount = 0;
+                                progressBar.style.width = '0%';
+                            }
+                        }, 3000);
+                    }
+                });
+
+            } else { // “wyx”方框
+                div.textContent = 'wyx';
+                div.addEventListener('click', function() {
+                    window.open(redirectUrl, '_blank');
+                });
+            }
             
-            // 添加点击事件
-            div.addEventListener('click', () => {
-                window.location.href = redirectUrl; // 点击后跳转到指定链接
-            });
-            
-            elements.push(div);
             document.body.appendChild(div);
+            elements.push(div);
+            // Defer elementRects population until after styles are applied and div is in DOM
         }
 
-        // 颜色切换逻辑
-        function changeColors() {
-            elements.forEach(element => {
-                // 获取当前颜色
-                const currentColor = colors[element.colorIndex];
-                element.style.backgroundColor = currentColor;
-                
-                // 更新颜色索引
-                element.colorIndex += element.direction;
-                
-                // 边界检测与方向反转
-                if (element.colorIndex >= colors.length - 1 || element.colorIndex <= 0) {
-                    element.direction *= -1;
-                    element.colorIndex += element.direction; // 防止越界
-                }
-                
-                // 确保索引在有效范围内
-                if (element.colorIndex < 0) element.colorIndex = 0;
-                if (element.colorIndex >= colors.length) element.colorIndex = colors.length - 1;
+        // Populate elementRects after all elements are created and in DOM
+        elements.forEach(el => {
+            elementRects.push({
+                width: el.offsetWidth,
+                height: el.offsetHeight
             });
-        }
-        setInterval(changeColors, 500); // 每500ms切换颜色
+        });
 
-        // 运动逻辑优化版
-        function moveElements() {
-            const now = performance.now();
-            const deltaTime = now - (moveElements.lastTime || now);
-            moveElements.lastTime = now;
+        let lastColorChangeTime = 0;
+        const COLOR_CHANGE_INTERVAL = 500; // ms
+        let lastAnimateTime = performance.now();
 
-            elements.forEach(el => {
-                // 使用deltaTime确保帧率独立
-                const dx = el.dx * (deltaTime / 16); // 16ms是60fps的基准
-                const dy = el.dy * (deltaTime / 16);
-                
-                // 更新位置
-                let left = parseFloat(el.style.left) + dx;
-                let top = parseFloat(el.style.top) + dy;
-                
-                // 边界检测
-                const rect = el.getBoundingClientRect();
-                if (left < 0 || left + rect.width > window.innerWidth) {
-                    el.dx = -el.dx;
-                    left = Math.max(0, Math.min(left, window.innerWidth - rect.width));
+        function animate() {
+            const currentTime = performance.now();
+            const deltaTime = currentTime - lastAnimateTime;
+            lastAnimateTime = currentTime;
+
+            // 颜色切换逻辑
+            if (currentTime - lastColorChangeTime > COLOR_CHANGE_INTERVAL) {
+                elements.forEach(el => {
+                    el.colorIndex += el.direction;
+                    if (el.colorIndex >= colors.length || el.colorIndex < 0) {
+                        el.direction *= -1;
+                        el.colorIndex += el.direction * 2; // Correct overshoot
+                    }
+                    el.colorIndex = Math.max(0, Math.min(el.colorIndex, colors.length - 1));
+                    el.style.backgroundColor = colors[el.colorIndex];
+                });
+                lastColorChangeTime = currentTime;
+            }
+            
+            // 移动和反弹逻辑
+            elements.forEach((el, index) => {
+                const rect = elementRects[index];
+                if (!rect) return; // Should not happen if populated correctly
+
+                let currentLeft = parseFloat(el.style.left);
+                let currentTop = parseFloat(el.style.top);
+
+                currentLeft += el.dx * (deltaTime / 16); // Normalize speed based on 60fps (1000/60 approx 16ms)
+                currentTop += el.dy * (deltaTime / 16);
+
+                // 边界检测 (使用offsetWidth/offsetHeight via rect)
+                if (currentLeft < 0) {
+                    currentLeft = 0;
+                    el.dx *= -1;
+                } else if (currentLeft + rect.width > window.innerWidth) {
+                    currentLeft = window.innerWidth - rect.width;
+                    el.dx *= -1;
                 }
-                if (top < 0 || top + rect.height > window.innerHeight) {
-                    el.dy = -el.dy;
-                    top = Math.max(0, Math.min(top, window.innerHeight - rect.height));
+
+                if (currentTop < 0) {
+                    currentTop = 0;
+                    el.dy *= -1;
+                } else if (currentTop + rect.height > window.innerHeight) {
+                    currentTop = window.innerHeight - rect.height;
+                    el.dy *= -1;
                 }
-                
-                el.style.left = left + 'px';
-                el.style.top = top + 'px';
+
+                el.style.left = currentLeft + 'px';
+                el.style.top = currentTop + 'px';
             });
             
-            requestAnimationFrame(moveElements);
+            requestAnimationFrame(animate);
         }
-        moveElements();
+        
+        // 监听窗口大小变化，更新元素尺寸缓存
+        window.addEventListener('resize', function() {
+            elements.forEach((el, index) => {
+                elementRects[index] = {
+                    width: el.offsetWidth,
+                    height: el.offsetHeight
+                };
+            });
+        });
+        
+        // 启动动画循环
+        requestAnimationFrame(animate);
     </script>
 </body>
 </html>
