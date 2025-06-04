@@ -23,19 +23,28 @@
 - 实时更新时间显示
 - 运动文本元素随机移动逻辑
 - 颜色动态变化效果
-- 性能优化(使用requestAnimationFrame)
+- 性能优化
 
 ## 文件结构
 - 项目根目录/\
-├── css/\
-│   └── main.css\
-└── main.html
+  ├── README.md
+  ├── main.html
+  ├── css/\
+  │   └── main.css
+  └── space/\
+      ├── PeachBlossomSpring.html
+      ├── css/\
+      │   └── PBScss.css
+      └── img/\
+          ├── claude.svg
+          └── wyx.jpg
 
 ## 使用工具
-- [Visual Studio Code](https://code.visualstudio.com/) <img src="https://images.sj33.cn/uploads/202106/7-210621202634K8.jpg" width= 10%>
-- [OpenRouter](https://openrouter.ai/) <img src="https://s21.ax1x.com/2025/04/26/pETP40A.png" width= 10%>
-- [Github Copilot](https://github.com/features/copilot/) <img src="https://s21.ax1x.com/2025/04/26/pETP5TI.png" width= 10%>
-- [Github](https://github.com/) <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.sV7tva-728oySeOUL0-vOwHaHa?rs=1&pid=ImgDetMain" width= 10%>
+- [Visual Studio Code](https://code.visualstudio.com/) <img src="https://images.sj33.cn/uploads/202106/7-210621202634K8.jpg" width= 15%>
+- [OpenRouter](https://openrouter.ai/) <img src="https://th.bing.com/th/id/OIP.jcE1dqcEUkCWRbgdJ2tQkwHaC2?rs=1&pid=ImgDetMain" width= 35%>
+- [Github Copilot](https://github.com/features/copilot/) <img src="https://talks.freelancerepublik.com/wp-content/uploads/2022/09/GitHub_Copilot_logo.svg_-1024x131.png" width= 50%>
+- [Github](https://github.com/) <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.sV7tva-728oySeOUL0-vOwHaHa?rs=1&pid=ImgDetMain" width= 12%>
+- [Trae](https://www.trae.ai/) <img src="https://lf-cdn.trae.ai/obj/trae-ai-us/og.jpeg" width= 20%>
 
 ## 许可证
 - GPL-3.0 license

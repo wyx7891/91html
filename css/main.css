@@ -38,10 +38,56 @@ body {
     transition: background-color 0.3s;
     opacity: 0.8;
     cursor: pointer;
+    /* 添加硬件加速 */
+    transform: translateZ(0);
+    will-change: transform, left, top, background-color;
+    /* 减少重绘 */
+    backface-visibility: hidden;
+    box-sizing: border-box; /* Ensures padding and border are included in width/height */
 }
 
 .moving-text:hover {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.05) translateZ(0); /* Keep translateZ for consistency */
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* 特殊运动文本的样式 */
+.special-moving-text {
+    /* Inherits .moving-text styles */
+    border: 3px dashed #FF00FF !important; /* !important to ensure override if needed */
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.7) !important;
+    animation: pulse 1.5s infinite alternate;
+    /* position: relative; is not strictly needed here as parent is already position:absolute */
+    /* will-change is inherited, but can be specified if different properties are animated */
+}
+
+/* 点击进度条样式 - 保持不变 */
+.click-progress-container {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.click-progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #FF00FF;
+    transition: width 0.3s ease;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    to {
+        transform: scale(1.1);
+        opacity: 1;
+    }
 }
